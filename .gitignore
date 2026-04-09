@@ -22,3 +22,6 @@ env/
 *.ckpt
 *.bin
 cache/
+
+# pytest cache
+.pytest_cache/
