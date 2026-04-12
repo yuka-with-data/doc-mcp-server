@@ -1,3 +1,25 @@
+""" 
+This module provides a function to validate the structural quality and integrity of a markdown document. 
+It checks for the presence and content of core sections (Installation, Usage, Example) and optional sections (Overview, Requirements, Contributing, License). 
+The validation results include a score and lists of any critical errors or warnings found in the document.
+
+Scoring:
+    - Starts from 100
+    - -20 for each missing core section
+    - -10 for each empty core section
+    - Minimum score is 0
+
+Args:
+    file_path (str): The path to the markdown file to validate.
+
+Returns:
+    dict: A dictionary containing the validation results, including:
+        - file: The path of the validated file.
+        - score: A numerical score (0-100) representing the structural quality.
+        - errors: A dictionary of critical issues found (missing/empty core sections).
+        - warnings: A dictionary of non-critical issues (missing/empty optional sections).
+ """
+
 import re
 
 # Define core sections that must be present and non-empty
@@ -41,9 +63,9 @@ def _extract_sections(content: str) -> dict:
 
 def validate_structure(file_path: str) -> dict:
     """
-    Validate markdown structure with:
-    - Core enforcement (affects score)
-    - Optional warnings (no penalty)
+    Validate the structural quality and integrity of the markdown document.
+    - Core sectiopn (Installation, Usage, Example)
+    - Optional sections (Overview, Requirements, Contributing, License)
     """
     try:
         with open(file_path, "r", encoding="utf-8") as f:
