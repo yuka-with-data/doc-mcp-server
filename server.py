@@ -1,5 +1,10 @@
 """ 
-server.py functions as the bridge between Client(Codex) and tools.
+doc-mcp-server
+
+This file initializes and runs a minimal MCP server for Codex.
+It registeres documenmentation-related tools and exposes them to AI agents via MCP.
+
+Run this file to start the server and connect it through Codex MCP settings.
  """
 
 from mcp.server.fastmcp import FastMCP 
