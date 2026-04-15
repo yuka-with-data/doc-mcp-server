@@ -1,7 +1,7 @@
 [project]
 name = "doc-mcp-server"
 version = "0.1.0"
-description = "A lightweight MCP-style documentation server for structured validation and tooling."
+description = "A lightweight MCP-style server for validating documentation structure and quality, designed to support contributor workflows and general documentation checks."
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.12"
