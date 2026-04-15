@@ -1,0 +1,27 @@
+[project]
+name = "doc-mcp-server"
+version = "0.1.0"
+description = "A lightweight MCP-style documentation server for structured validation and tooling."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.12"
+dependencies = [
+    "mcp[cli]",
+]
+authors = [
+    { name = "yuka-with-data" }
+]
+keywords = ["mcp", "documentation", "doc", "validation", "tools"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.0.3"
+]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
