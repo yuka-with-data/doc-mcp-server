@@ -129,7 +129,7 @@ Planned improvements for this MCP server:
 Contributions are welcome, especially around:
 - New MCP tools
 - Enhancing output structure
-- The use of resource and prompt decorators (`@mcp.tool` and `@mcp.resource`)
+- The use of resource and prompt decorators (`@mcp.resource` and `@mcp.prompt`)
 
 #### How to contribute
 1. Fork the repository
