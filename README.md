@@ -66,12 +66,18 @@ In this setup:
 - New tools are in development
 
 ## Installation
-```py
-# Clone repository
-git clone doc-mcp-server
+```bash
+# 1. Fork the repository on GitHub first
+# (Click "Fork" on the repo page)
+
+# 2. Clone your fork
+git clone https://github.com/<your-username>/doc-mcp-server.git
 cd doc-mcp-server
 
-# Install dependencies
+# 3. (Optional) Add upstream remote for syncing with original repo
+git remote add upstream https://github.com/<original>/doc-mcp-server.git
+
+# 4. Install dependencies
 pip install -r requirements.txt
 ```
 
