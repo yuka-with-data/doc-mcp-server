@@ -1,4 +1,5 @@
 {
+  "gitignore": true,
   "config": {
     // Disable rules that do not fit project style.
     "MD013": false
