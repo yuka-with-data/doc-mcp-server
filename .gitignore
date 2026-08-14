@@ -30,3 +30,6 @@ cache/
 build/
 dist/
 *.egg-info/
+
+# Node modules
+node_modules/
