@@ -5,13 +5,14 @@ description = "A lightweight MCP-style server for validating documentation struc
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.12"
-dependencies = [
-    "mcp[cli]",
-]
 authors = [
     { name = "yuka-with-data" }
 ]
 keywords = ["mcp", "documentation", "doc", "validation", "tools"]
+
+dependencies = [
+    "mcp[cli]>=1.27.0,<2.0.0",
+]
 
 [project.optional-dependencies]
 dev = [
