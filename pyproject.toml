@@ -16,7 +16,8 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=9.0.3"
+    "pytest>=9.0.3",
+    "pylint>=3,<5"
 ]
 
 [build-system]
