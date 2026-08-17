@@ -1,12 +1,14 @@
-# tests/test_scan.py
+""" Tests for the documentation scanning tool."""
 import sys
 import os
-
+# Add the project root to the import path so tests can import tools.scan.
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from tools.scan import scan_docs_structure
+
+# Import the tool under test.
+from tools.scan import scan_docs_structure # pylint: disable=wrong-import-position
 
 def test_scan_docs_structure_finds_markdown_files(tmp_path):
-    # Create test files
+    """ Test that scan_docs_structure finds markdown files in the given directory."""
     (tmp_path / "README.md").write_text("# Readme")
     (tmp_path / "notes.MD").write_text("# Notes")  # case-insensitive
     (tmp_path / "script.py").write_text("print('hello')")
@@ -19,7 +21,7 @@ def test_scan_docs_structure_finds_markdown_files(tmp_path):
 
 
 def test_scan_docs_structure_ignores_unwanted_dirs(tmp_path):
-    # Create ignored directory
+    """ Test that scan_docs_structure ignores unwanted directories."""
     node_modules = tmp_path / "node_modules"
     node_modules.mkdir()
     (node_modules / "ignored.md").write_text("ignore me")
@@ -35,6 +37,7 @@ def test_scan_docs_structure_ignores_unwanted_dirs(tmp_path):
 
 
 def test_scan_docs_structure_nested_directories(tmp_path):
+    """ Test that scan_docs_structure finds markdown files in nested directories."""
     nested = tmp_path / "docs" / "guide"
     nested.mkdir(parents=True)
     (nested / "example.md").write_text("example")
@@ -46,7 +49,7 @@ def test_scan_docs_structure_nested_directories(tmp_path):
 
 
 def test_scan_docs_structure_invalid_path():
+    """ Test that scan_docs_structure handles invalid paths gracefully."""
     results = scan_docs_structure("non_existent_path")
 
-    # Depending on your implementation, adjust this if needed
-    assert results == []
+    assert not results  # Should return an empty list for non-existent paths
