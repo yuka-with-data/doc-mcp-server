@@ -91,8 +91,8 @@ cd doc-mcp-server
 # 3. (Optional) Add upstream remote for syncing with original repo
 git remote add upstream https://github.com/<original>/doc-mcp-server.git
 
-# 4. Install dependencies
-pip install -r requirements.txt
+# 4. Install the project and development dependencies
+pip install -e ".[dev]"
 ```
 
 ## Usage (Local/stdio)
