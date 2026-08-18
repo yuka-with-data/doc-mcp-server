@@ -1,3 +1,4 @@
+""" Tools for scanning repository documentation files """
 import os
 from typing import List
 
@@ -20,7 +21,7 @@ def scan_docs_structure(repo_path: str) -> List[str]:
 
     if not os.path.exists(repo_path):
         return []
-    
+
     for root, dirs, files in os.walk(repo_path):
         # Skip common unwanted directories
         dirs[:] = [d for d in dirs if d not in ['.git', 'node_modules', '__pycache__']]
@@ -28,7 +29,6 @@ def scan_docs_structure(repo_path: str) -> List[str]:
         for file in files:
             if file.lower().endswith('.md'):
                 full_path = os.path.join(root, file)
-                md_files.append(os.path.join(root, file))
+                md_files.append(full_path)
 
     return md_files
-    
