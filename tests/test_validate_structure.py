@@ -1,11 +1,15 @@
+""" Tests for the validate_structure tool."""
 import sys
 import os
 
+# Add the project root to the import path so tests can import tools.scan.
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from tools.validate_structure import validate_structure
+# Import the tool under test
+from tools.validate_structure import validate_structure # pylint: disable=wrong-import-position
 
 
 def test_missing_core_sections(tmp_path):
+    """ Test that missing core sections are reported as errors. """
     file = tmp_path / "README.md"
     file.write_text("# Project\n\n## Usage\nSome usage here")
 
@@ -17,6 +21,7 @@ def test_missing_core_sections(tmp_path):
 
 
 def test_empty_core_section(tmp_path):
+    """ Test that empty core sections are reported as errors. """
     file = tmp_path / "README.md"
     file.write_text("""
 # Project
@@ -38,6 +43,7 @@ Example here
 
 
 def test_optional_sections_warning(tmp_path):
+    """ Test that missing optional sections generate warnings. """
     file = tmp_path / "README.md"
     file.write_text("""
 # Project
@@ -63,6 +69,7 @@ Example here
 
 
 def test_all_sections_present(tmp_path):
+    """ Test that a README with all sections receives a perfect score. """
     file = tmp_path / "README.md"
     file.write_text("""
 # Project
@@ -97,12 +104,14 @@ MIT
 
 
 def test_file_read_error():
+    """ Test that an invalid file path returns an error. """
     result = validate_structure("non_existent_file.md")
 
     assert "error" in result
 
 
 def test_score_calculation(tmp_path):
+    """ Test that the score is calculated correctly based on missing sections. """
     file = tmp_path / "README.md"
     file.write_text("""
 # Project
@@ -123,6 +132,7 @@ Example here
     assert result["score"] == expected_score
 
 def test_flexible_section_names(tmp_path):
+    """ Test that the tool can handle flexible section names. """
     # Edge case
     file = tmp_path / "README.md"
     file.write_text("""
