@@ -1,7 +1,9 @@
-""" 
-This module provides a function to validate the structural quality and integrity of a markdown document. 
-It checks for the presence and content of core sections (Installation, Usage, Example) and optional sections (Overview, Requirements, Contributing, License). 
-The validation results include a score and lists of any critical errors or warnings found in the document.
+"""
+This module provides a function to validate the structural quality of a markdown document.
+It checks for the presence and content of core sections (Installation, Usage, Example)
+and optional sections (Overview, Requirements, Contributing, License).
+The validation results include a score and lists of any critical errors
+or warnings found in the document.
 
 Scoring:
     - Starts from 100
@@ -63,14 +65,14 @@ def _extract_sections(content: str) -> dict:
 
 def validate_structure(file_path: str) -> dict:
     """
-    Validate the structural quality and integrity of the markdown document.
-    - Core sectiopn (Installation, Usage, Example)
+    Validate the structural quality of the markdown document.
+    - Core sections (Installation, Usage, Example)
     - Optional sections (Overview, Requirements, Contributing, License)
     """
     try:
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
-    except Exception as e:
+    except OSError as e:
         return {
             "file": file_path,
             "error": str(e)
@@ -88,11 +90,11 @@ def validate_structure(file_path: str) -> dict:
     for required in CORE_SECTIONS:
         found = False
 
-        for section_name in sections.keys():
+        for section_name, section_content in sections.items():
             if required.lower() in section_name.lower():
                 found = True
 
-                if not sections[section_name] or sections[section_name].lower() in ["todo", "tbd"]:
+                if not section_content or section_content.lower() in ["todo", "tbd"]:
                     empty_core.append(section_name)
 
         if not found:
@@ -102,11 +104,11 @@ def validate_structure(file_path: str) -> dict:
     for optional in OPTIONAL_SECTIONS:
         found = False
 
-        for section_name in sections.keys():
+        for section_name, section_content in sections.items():
             if optional.lower() in section_name.lower():
                 found = True
 
-                if not sections[section_name] or sections[section_name].lower() in ["todo", "tbd"]:
+                if not section_content or section_content.lower() in ["todo", "tbd"]:
                     empty_optional.append(section_name)
 
         if not found:
