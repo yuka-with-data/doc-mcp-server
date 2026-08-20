@@ -11,7 +11,7 @@ authors = [
 keywords = ["mcp", "documentation", "doc", "validation", "tools"]
 
 dependencies = [
-    "mcp[cli]>=1.27.0,<2.0.0",
+    "mcp[cli]>=2.0.0,<3.0.0",
 ]
 
 [project.optional-dependencies]
