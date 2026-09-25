@@ -10,7 +10,7 @@ Run this file to start the server and connect it through Codex MCP settings.
 
 import logging
 import sys
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
 # Tools loading
 from tools.scan import scan_docs_structure
@@ -24,7 +24,7 @@ logging.basicConfig(
     )
 
 # Create MCP server instance
-mcp = FastMCP("doc-mcp-server")
+mcp = MCPServer("doc-mcp-server")
 
 # ---------- Register tools ------------
 @mcp.tool()
