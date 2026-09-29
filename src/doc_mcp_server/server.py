@@ -13,8 +13,8 @@ import sys
 from mcp.server.mcpserver import MCPServer
 
 # Tools loading
-from tools.scan import scan_docs_structure
-from tools.validate_structure import validate_structure
+from doc_mcp_server.tools.scan import scan_docs_structure
+from doc_mcp_server.tools.validate_structure import validate_structure
 
 # Setup basic logging (important for debugging with Codex)
 # IMPORTANT: logging must NOT go to stdout

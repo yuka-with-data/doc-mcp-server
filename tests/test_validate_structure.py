@@ -1,15 +1,19 @@
-""" Tests for the validate_structure tool."""
-import sys
-import os
+"""Tests for the validate_structure tool."""
 
-# Add the project root to the import path so tests can import tools.scan.
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-# Import the tool under test
-from tools.validate_structure import validate_structure # pylint: disable=wrong-import-position
+import os
+import sys
+
+# Add the src directory to the import path so tests can import the package.
+PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
+SRC_PATH = os.path.join(PROJECT_ROOT, "src")
+sys.path.insert(0, SRC_PATH)
+
+# Import the tool under test.
+from doc_mcp_server.tools.validate_structure import validate_structure  # pylint: disable=wrong-import-position
 
 
 def test_missing_core_sections(tmp_path):
-    """ Test that missing core sections are reported as errors. """
+    """Test that missing core sections are reported as errors."""
     file = tmp_path / "README.md"
     file.write_text("# Project\n\n## Usage\nSome usage here")
 
@@ -21,7 +25,7 @@ def test_missing_core_sections(tmp_path):
 
 
 def test_empty_core_section(tmp_path):
-    """ Test that empty core sections are reported as errors. """
+    """Test that empty core sections are reported as errors."""
     file = tmp_path / "README.md"
     file.write_text("""
 # Project
@@ -43,7 +47,7 @@ Example here
 
 
 def test_optional_sections_warning(tmp_path):
-    """ Test that missing optional sections generate warnings. """
+    """Test that missing optional sections generate warnings."""
     file = tmp_path / "README.md"
     file.write_text("""
 # Project
@@ -60,16 +64,16 @@ Example here
 
     result = validate_structure(str(file))
 
-    # Optional sections should appear as warnings
+    # Optional sections should appear as warnings.
     assert "Overview" in result["warnings"]["missing_optional_sections"]
     assert "License" in result["warnings"]["missing_optional_sections"]
 
-    # Score should NOT be penalized
+    # Score should not be penalized.
     assert result["score"] == 100
 
 
 def test_all_sections_present(tmp_path):
-    """ Test that a README with all sections receives a perfect score. """
+    """Test that a README with all sections receives a perfect score."""
     file = tmp_path / "README.md"
     file.write_text("""
 # Project
@@ -104,14 +108,14 @@ MIT
 
 
 def test_file_read_error():
-    """ Test that an invalid file path returns an error. """
+    """Test that an invalid file path returns an error."""
     result = validate_structure("non_existent_file.md")
 
     assert "error" in result
 
 
 def test_score_calculation(tmp_path):
-    """ Test that the score is calculated correctly based on missing sections. """
+    """Test that the score is calculated correctly based on missing sections."""
     file = tmp_path / "README.md"
     file.write_text("""
 # Project
@@ -125,15 +129,14 @@ Example here
 
     result = validate_structure(str(file))
 
-    # Missing: Installation → -20
-    # No empty sections
+    # Missing Installation should reduce the score by 20 points.
     expected_score = 80
 
     assert result["score"] == expected_score
 
+
 def test_flexible_section_names(tmp_path):
-    """ Test that the tool can handle flexible section names. """
-    # Edge case
+    """Test that the tool can handle flexible section names."""
     file = tmp_path / "README.md"
     file.write_text("""
 # Project
@@ -150,6 +153,6 @@ Example here
 
     result = validate_structure(str(file))
 
-    # Should NOT count as missing (fuzzy match works)
+    # Fuzzy matching should recognize the flexible section names.
     assert result["errors"]["missing_core_sections"] == []
     assert result["score"] == 100
