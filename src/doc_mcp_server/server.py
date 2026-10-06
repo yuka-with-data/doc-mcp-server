@@ -15,6 +15,7 @@ from mcp.server.mcpserver import MCPServer
 # Tools loading
 from doc_mcp_server.tools.scan import scan_docs_structure
 from doc_mcp_server.tools.validate_structure import validate_structure
+from doc_mcp_server.tools.check_links import check_links
 
 # Setup basic logging (important for debugging with Codex)
 # IMPORTANT: logging must NOT go to stdout
@@ -37,6 +38,10 @@ def validate_structure_tool(file_path: str) -> list:
     """ Check markdown file for missing sections. """
     return validate_structure(file_path)
 
+@mcp.tool()
+def check_links_tool(file_path: str) -> dict:
+    """ Check all links in a markdown file. """
+    return check_links(file_path)
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")  # Use stdio for communication with Codex
