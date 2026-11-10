@@ -1,7 +1,8 @@
 """
 Tests for the documentation link checker.
 """
-
+from urllib.error import HTTPError
+from urllib.error import URLError
 from pathlib import Path
 import pytest
 from doc_mcp_server.tools.check_links import (
@@ -212,7 +213,7 @@ def test_check_external_link_valid(monkeypatch: pytest.MonkeyPatch) -> None:
             # Do not suppress exceptions raised inside the context manager.
             return False
 
-    def mock_urlopen(*args, **kwargs):
+    def mock_urlopen(*_args, **_kwargs):
         # Return a successful mock response without making a network request.
         return MockResponse()
 
@@ -236,9 +237,8 @@ def test_check_external_link_broken(monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch (pytest.MonkeyPatch): Pytest fixture for replacing objects.
     """
 
-    def mock_urlopen(*args, **kwargs):
+    def mock_urlopen(*_args, **_kwargs):
         # Simulate a server returning an HTTP error such as 404.
-        from urllib.error import HTTPError
 
         raise HTTPError(
             "https://example.com",
@@ -271,9 +271,7 @@ def test_check_external_link_unverified(
         monkeypatch (pytest.MonkeyPatch): Pytest fixture for replacing objects.
     """
 
-    from urllib.error import URLError
-
-    def mock_urlopen(*args, **kwargs):
+    def mock_urlopen(*_args, **_kwargs):
         # Simulate a network failure such as a connection or DNS error.
         raise URLError("Connection failed")
 
@@ -360,7 +358,7 @@ def test_check_links(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
             # Do not suppress exceptions raised inside the context manager.
             return False
 
-    def mock_urlopen(*args, **kwargs):
+    def mock_urlopen(*_args, **_kwargs):
         # Return a successful mock response without making a network request.
         return MockResponse()
 
